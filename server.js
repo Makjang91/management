@@ -26,7 +26,7 @@ app.get('/api/customers', async (req,res) => {
     try {
       conn = await pool.getConnection();
 
-      let rows = await conn.query("SELECT * FROM customer");
+      let rows = await conn.query("SELECT * FROM customer WHERE isDeleted = 0");
 
       res.send(rows);
     } catch (err) {
@@ -43,7 +43,7 @@ app.post('/api/customers', upload.single('image'), async (req,res) => {
   let gender = req.body.gender;
   let job = req.body.job;
   
-  let query = 'INSERT INTO customer values (null, \''+image+'\', \''+name+'\', \''+brithday+'\', \''+gender+'\', \''+job+'\')';
+  let query = 'INSERT INTO customer values (null, \''+image+'\', \''+name+'\', \''+brithday+'\', \''+gender+'\', \''+job+'\''+now()+', 0)';
   
   let params = [image, name, brithday, gender, job];
   
@@ -54,6 +54,19 @@ app.post('/api/customers', upload.single('image'), async (req,res) => {
 
     res.send(rows);
   } catch (err) {
+    throw err;
+  }
+})
+
+app.delete('/api/customers/:id', async (req, res) => {
+  let query = 'UPDATE customer SET isDeleted = 1 WHERE id = '+req.params.id;
+  
+  try{
+    conn = await pool.getConnection();
+    let rows = await conn.query(query);
+
+    res.send(rows);
+  } catch (err){
     throw err;
   }
 })

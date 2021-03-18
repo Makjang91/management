@@ -10,3 +10,9 @@ create table customer (
 insert into customer values (1, 'https://placeimg.com/64/64/1', 'Jim', '960111', 'M', 'Salesman');
 insert into customer values (2, 'https://placeimg.com/64/64/2', 'Jully', '961107', 'F', 'Student');
 insert into customer values (3, 'https://placeimg.com/64/64/3', 'Max', '850228', 'M', 'Driver');
+
+alter table customer add createdAt DATETIME;
+alter table customer add isDeleted int;
+
+update customer set createdAt = NOW();
+update customer set isDeleted = 0;
