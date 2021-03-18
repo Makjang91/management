@@ -43,7 +43,7 @@ app.post('/api/customers', upload.single('image'), async (req,res) => {
   let gender = req.body.gender;
   let job = req.body.job;
   
-  let query = 'INSERT INTO customer values (null, \''+image+'\', \''+name+'\', \''+brithday+'\', \''+gender+'\', \''+job+'\''+now()+', 0)';
+  let query = 'INSERT INTO customer values (null, \''+image+'\', \''+name+'\', \''+brithday+'\', \''+gender+'\', \''+job+'\', now(), 0)';
   
   let params = [image, name, brithday, gender, job];
   
