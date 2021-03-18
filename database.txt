@@ -1,0 +1,12 @@
+create table customer (
+    id int primary key auto_increment,
+    image varchar(1024),
+    name varchar(64),
+    birthday varchar(64),
+    gender varchar(64),
+    job varchar(64)
+) DEFAULT CHARACTER SET UTF8 COLLATE utf8_general_ci;
+
+insert into customer values (1, 'https://placeimg.com/64/64/1', 'Jim', '960111', 'M', 'Salesman');
+insert into customer values (2, 'https://placeimg.com/64/64/2', 'Jully', '961107', 'F', 'Student');
+insert into customer values (3, 'https://placeimg.com/64/64/3', 'Max', '850228', 'M', 'Driver');
