@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles'
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto"
   },
   table: {
@@ -20,34 +20,24 @@ const styles = theme => ({
   }
 })
 
-const customers = [
-  {
-    'id': 1,
-    'image': 'http://placeimg.com/64/64/1',
-    'name': 'jim',
-    'gender': 'M',
-    'birthday': '870923',
-    'job': 'Salesman'
-  },
-  {
-    'id': 2,
-    'image': 'http://placeimg.com/64/64/2',
-    'name': 'Jully',
-    'gender': 'F',
-    'birthday': '950215',
-    'job': 'Teacher'
-  },
-  {
-    'id': 3,
-    'image': 'http://placeimg.com/64/64/3',
-    'name': 'Max',
-    'gender': 'M',
-    'birthday': '001101',
-    'job': 'Student'
-  }
-]
-
 class App extends Component {
+
+  state = {
+    customers: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render(){ 
     const { classes } = this.props;
     return (
@@ -65,7 +55,7 @@ class App extends Component {
                 </TableHead>
                 <TableBody>
                   {
-                    customers.map(c => {
+                    this.state.customers ? this.state.customers[0].map(c => {
                       return (
                         <Customer
                           key={c.id}
@@ -77,7 +67,7 @@ class App extends Component {
                           job={c.job}
                         />
                       )
-                    })
+                    }) : "loading"
                   }
                 </TableBody>
               </Table>
