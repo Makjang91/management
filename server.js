@@ -4,9 +4,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.envPORT || 5000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
-
 const data = fs.readFileSync('./database.json');
 const conf = JSON.parse(data);
 const mariadb = require('mariadb')
@@ -20,6 +17,9 @@ const pool = mariadb.createPool({
 
 const multer = require('multer');
 const upload = multer({dest: './upload'});
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "Client","build")));
 
 app.get('/api/customers', async (req,res) => {
     let conn;
