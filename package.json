@@ -1,6 +1,7 @@
 {
     "name": "management",
     "version": "1.0.0",
+    "homepage": "http://http://ec2-15-188-86-43.eu-west-3.compute.amazonaws.com/js/",
     "scripts": {
         "client": "cd Client && yarn start",
         "server": "nodemon server.js",
